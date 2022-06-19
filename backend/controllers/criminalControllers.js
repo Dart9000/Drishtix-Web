@@ -3,9 +3,9 @@ const Criminal=require("../models/criminals");
 
 
 const addCriminal= asyncHandler( async (req, res)=>{
-const {name,crime,report_station,pic_url}=req.body;
+const {name,crime,report_station}=req.body;
 
-if (!name || !crime||!report_station ||!pic_url) {
+if (!name || !crime||!report_station ) {
     res.status(400);
     throw new Error("Please Enter all the Feilds");
   }
@@ -13,16 +13,16 @@ if (!name || !crime||!report_station ||!pic_url) {
     name,
     crime,
     report_station,
-    pic_url
+   
   });
 
   if (criminal) {
-    res.status(200).json({
+    res.status(201).json({
       _id: criminal._id,
       name: criminal.name,
       crime: criminal.crime,
       report_station:criminal.report_station,
-      pic_url:criminal.pic_url
+      // pic_url:criminal.pic_url
     
     });
 

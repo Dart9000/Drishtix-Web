@@ -5,7 +5,7 @@ const router =require("express").Router();
 // router.route("/").get(protect, allUsers);
 
 
-router.post("/addCriminal",protect,addCriminal);
+router.post("/create",protect,addCriminal);
 
 
 

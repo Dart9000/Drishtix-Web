@@ -5,7 +5,7 @@ import Login from './pages/login/Login';
 import { useState ,useEffect} from 'react';
 import axios from "axios";
 import Register from './pages/login/register';
-
+import Createcriminal from './pages/createCriminal/Createcriminal';
 
 const baseURL = "http://localhost:3002";
 
@@ -47,6 +47,16 @@ function App() {
                 )
              
               } />
+               <Route path="/create_criminal" element={
+                !userData.isAdmin?(
+                < Createcriminal baseURL={baseURL} />
+                ):(
+                  <h1>access denied</h1>
+                )
+             
+              } />
+             
+
               
             </Routes>
           ) : (

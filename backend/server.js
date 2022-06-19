@@ -6,6 +6,7 @@ const cors=require("cors");
 const mongoose=require("mongoose");
 const cookieParser = require("cookie-parser");
 const {protect} = require("./middleware/authMiddleware");
+const criminalRoutes =require("./routes/criminalRoutes");
 
 const port = process.env.PORT || 3002;
 
@@ -35,6 +36,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 
 
 app.use("/", userRoutes);
+app.use("/criminal",criminalRoutes);
 
 // app.get('/', protect, (req, res) => res.send('Hello World!'))
 
