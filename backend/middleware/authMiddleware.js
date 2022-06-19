@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel.js");
-const asyncHandler = require("express-async-handler"); // gives the async error handling 
+const asyncHandler = require("express-async-handler"); // gives the async error handling
 
 const protect = asyncHandler(async (req, res, next) => {
     try {
@@ -17,10 +17,9 @@ const protect = asyncHandler(async (req, res, next) => {
       //decodes token id
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      req.userData = await User.findById(decoded.id).select("-password"); // to exclude password and include info of user 
+      req.userData = await User.findById(decoded.id).select("-password"); // to exclude password and include info of user
       next();
-    } 
-    catch (error) {
+    }catch (error) {
       res.status(401);
       throw new Error("Not authorized, token failed");
     }
@@ -43,14 +42,14 @@ const adminProtect = asyncHandler(async (req, res, next) => {
     //decodes token id
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.userData = await User.findById(decoded.id).select("-password"); // to exclude password and include info of user 
+    req.userData = await User.findById(decoded.id).select("-password"); // to exclude password and include info of user
     if(req.userData.isAdmin){
       return next();
     }
     else {
-       res.status(401).send("Not authorized ,token failed"); 
+       res.status(401).send("Not authorized ,token failed");
     }
-      } 
+      }
   catch (error) {
     res.status(401);
     throw new Error("Not authorized, token failed");

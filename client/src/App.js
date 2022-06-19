@@ -16,27 +16,26 @@ function App() {
 
    //function for checking the JWT from backend API
   const valToken = async () => {
-    console.log("Working");
     await axios.get(baseURL, { validateStatus: false, withCredentials: true }).then((response) => {
       if(response.status === 403 || response.status === 401){
         setauth(false);
-        console.log(response.data);
+        console.log("Not found", response.data);
       }else{
         setauth(true);
+        console.log("Found");
         setUserData(response.data.user);
       }
     });
   }
 
  useEffect(() => {
-   console.log("Working");
   valToken();
  }, []);
 
  return (
       <div className="App">
           {auth ? (
-            <Home />
+            <Home isAdmin={userData.Admin} />
           ) : (
             <Login baseURL={baseURL} setauth={setauth}/>
           )}
