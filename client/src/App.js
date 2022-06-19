@@ -19,10 +19,8 @@ function App() {
     await axios.get(baseURL, { validateStatus: false, withCredentials: true }).then((response) => {
       if(response.status === 403 || response.status === 401){
         setauth(false);
-        console.log("Not found", response.data);
       }else{
         setauth(true);
-        console.log(response.data.user);
         setUserData(response.data.user);
       }
     });
