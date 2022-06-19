@@ -5,10 +5,11 @@ const userRoutes =require("./routes/userRoutes");
 const app = express()
 const cors=require("cors");
 const mongoose=require("mongoose");
-
+const cookieParser = require("cookie-parser");
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 
 // database connection 
@@ -31,7 +32,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 app.use(notFound);
 app.use(errorHandler);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3002;
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 // register 
