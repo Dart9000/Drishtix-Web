@@ -6,8 +6,7 @@ const router =require("express").Router();
 // router.route("/").get(protect, allUsers);
 router.get("/", protect, (req,res)=>{
   res.status(200).json({
-    msg: "you are a user or a admin see yourself ",
-    user: req.userData,
+    user: req.userData
   });
 });
 

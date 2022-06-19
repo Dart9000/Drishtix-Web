@@ -22,7 +22,7 @@ function App() {
         console.log("Not found", response.data);
       }else{
         setauth(true);
-        console.log("Found");
+        console.log(response.data.user);
         setUserData(response.data.user);
       }
     });
@@ -35,7 +35,7 @@ function App() {
  return (
       <div className="App">
           {auth ? (
-            <Home isAdmin={userData.Admin} />
+            <Home isAdmin={userData.isAdmin} />
           ) : (
             <Login baseURL={baseURL} setauth={setauth}/>
           )}
