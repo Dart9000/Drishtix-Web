@@ -5,14 +5,32 @@ import Login from './pages/login/Login';
 import { useState ,useEffect} from 'react';
 import axios from "axios";
 
+// component to protect routes for user privilige
+const ProtectedRoute = ({originurl,isauth,children})=>{
+  if(isauth){
+    return children;
+  }
+  else{
+    return <Navigate to="/login" replace />
+  }
+}
+
+// component to protect routes for admin privilege
+const AdminProtectedRoute = ({originurl,isadmin,children})=>{
+  if(isadmin){
+    return children;
+  }
+  else{
+    return <Navigate to="/login" replace />
+  }
+
+}
+
+
 function App() {
  const[auth,setauth] =useState(false);
  const[admin,setadmin]=useState(false);
 
- useEffect(() => {
-  validate();
- }, []);
- 
  const validate= async()=>{
   const result=await axios.post("http://localhost:3002/api/user/login",{"name":"user",
   "email":"user@gmail.com",
@@ -30,10 +48,13 @@ function App() {
   else{
     setauth(false);
   }
-  
+
  }
 
- 
+ useEffect(() => {
+  validate();
+ }, []);
+
  return (
     <div className="App">
       <Routes>
@@ -49,28 +70,5 @@ function App() {
     </div>
   );
 }
-
-// component to protect routes for user privilige
-const ProtectedRoute = ({originurl,isauth,children})=>{
-  if(isauth){
-    return children;
-  }
-  else{
-    return <Navigate to="/login" replace />
-  }
-
-}
-
-// component to protect routes for admin privilege
-const AdminProtectedRoute = ({originurl,isadmin,children})=>{
-  if(isadmin){
-    return children;
-  }
-  else{
-    return <Navigate to="/login" replace />
-  }
-
-}
-
 
 export default App;
