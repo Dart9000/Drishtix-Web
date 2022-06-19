@@ -9,9 +9,9 @@ const generateToken = require("../config/generateToken");
 //@access          only admin
 
 const registerUser = asyncHandler( async (req, res) => {
-    const { name, email, password, pic } = req.body;
+    const { name, email } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email ) {
       res.status(400);
       throw new Error("Please Enter all the Feilds");
     }
@@ -26,7 +26,7 @@ const registerUser = asyncHandler( async (req, res) => {
     const user = await User.create({
       name,
       email,
-      password,
+      password:"123",
     });
 
     if (user) {
@@ -34,8 +34,6 @@ const registerUser = asyncHandler( async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        // isAdmin: user.isAdmin,
-        token: generateToken(user._id),
       });
     } else {
       res.status(400);
