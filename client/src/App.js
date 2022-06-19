@@ -31,36 +31,25 @@ function App() {
  }, []);
 
  return (
-      <div className="App">
+   <Router>
+     <div className="App">
           {auth ? (
-            <Home isAdmin={userData.isAdmin} />
+            <Routes>
+              <Route path="/" element={
+                <Home isAdmin={userData.isAdmin} />
+              } />
+
+              <Route path="/register" element={
+                <h1>Registor</h1>
+              } />
+            </Routes>
           ) : (
             <Login baseURL={baseURL} setauth={setauth}/>
           )}
-
       </div>
+    </Router>
   );
 }
 
-// // component to protect routes for user privilige
-// const ProtectedRoute = ({originurl,isauth,children})=>{
-//   if(isauth){
-//     return children;
-//   }
-//   else{
-//     return <Navigate to="/login" replace />
-//   }
-// }
-//
-// // component to protect routes for admin privilege
-// const AdminProtectedRoute = ({originurl,isadmin,children})=>{
-//   if(isadmin){
-//     return children;
-//   }
-//   else{
-//     return <Navigate to="/login" replace />
-//   }
-//
-// }
 
 export default App;
