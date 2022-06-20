@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from "axios";
+import styles from "./CriminalProfile.module.css"
 
 const CriminalProfile = ( {baseURL}) => {
 
@@ -31,35 +32,26 @@ const CriminalProfile = ( {baseURL}) => {
 
 
 
-  return (<>
-
-  <div class="card">
-      <div class="details">
-            <h2>Stevie Blight</h2>
-            <p>Director</p>
-        </div>
-        <p id="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    </div>
-
-    <div className='phone'>
-        <h1>CriminalProfile</h1>
-
-        <div>
+  return (
+    <div className='.body'>
+    <div className={styles.heading}><h1>CriminalProfile</h1></div>
+    <div className ={`${styles.card}`}>
         <img  className='avatar' alt="pic of criminal" src={`${profileImgURL}`}/>
+       <div className ={`${styles.details}`}>
+        
         </div>
-
-        <div>
-            <div>Name</div> : <div>{name}</div>
+        <div className={`${styles.card_body}`}> 
+        <div> {name}</div>
+        <div> Crime: {crime}</div>
+        <div> Report Station : {reportStation}</div>
+      </div>
+            
+            
         </div>
-        <div>
-            <div>reportStation</div> : <div>{reportStation}</div>
-        </div>
-        <div>
-            <div>crime</div> : <div>{crime}</div>
-        </div>
-
-    </div>
-    </>
+        
+     </div>
+        
+   
   )
 }
 
