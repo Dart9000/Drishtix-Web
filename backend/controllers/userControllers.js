@@ -124,11 +124,13 @@ const registerUser = asyncHandler( async (req, res) => {
   });
 
   const handle = async (req, res) => {
-    const {email, otp, password} = req.body;
+    const {email, otp, password, whatsappNo, address} = req.body;
 
     const user = await User.findOne({ email });
     if(user.otp == otp){
       user.password = password;
+      user.whatsappNo = whatsappNo;
+      user.address = address;
       user.otp = undefined;
 
       await user.save();

@@ -8,6 +8,8 @@ const cookieParser = require("cookie-parser");
 const {protect} = require("./middleware/authMiddleware");
 const criminalRoutes =require("./routes/criminalRoutes");
 
+const fileUpload = require('express-fileupload');
+
 const port = process.env.PORT || 3002;
 
 const userRoutes =require("./routes/userRoutes");
@@ -33,7 +35,20 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
         console.log(err)
     })
 
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir : '/tmp/'
+}));
 
+app.use(function(req, res, next) {
+  res.header('Content-Type', 'application/json;charset=UTF-8')
+  res.header('Access-Control-Allow-Credentials', true)
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  )
+  next()
+})
 
 app.use("/", userRoutes);
 app.use("/criminal",criminalRoutes);
