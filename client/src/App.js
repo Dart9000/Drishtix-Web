@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes, Link} from "react-router-dom";
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import HandOver from './pages/login/HandOver';
@@ -7,6 +7,7 @@ import { useState ,useEffect} from 'react';
 import axios from "axios";
 import Register from './pages/login/register';
 import Createcriminal from './pages/createCriminal/Createcriminal';
+import Navbar from './Components/Navbar/Navbar';
 
 const baseURL = "http://localhost:3002";
 
@@ -31,9 +32,12 @@ function App() {
   valToken();
  }, []);
 
- return (
+ return (<>
    <Router>
-     <div className="App">
+  
+     <div className="App"> 
+            <Navbar auth={auth}/>
+            <div className='app_body'>
             <Routes>
               <Route path="/" element={
                 auth ? (
@@ -71,11 +75,13 @@ function App() {
               <Route path="/handover_user/:email/:otp" element={
                 <HandOver baseURL={baseURL}/>
               } />
-
+            
             </Routes>
+            </div>
 
       </div>
     </Router>
+    </>
   );
 }
 

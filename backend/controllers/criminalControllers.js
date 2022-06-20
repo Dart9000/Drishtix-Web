@@ -1,6 +1,7 @@
 const cloudinary = require('cloudinary').v2;
 const asyncHandler = require("express-async-handler");
 const Criminal=require("../models/criminals");
+const Dataset = require('../models/dataset');
 
 
 
@@ -13,6 +14,9 @@ cloudinary.config({
 const addCriminal= async (req, res) => {
 
   try{
+    const{encoding}=req.body;
+    const encodedArray = encoding.split(",");
+    console.log(encodedArray);
     const {name,crime,reportStation}=req.body;
     if (!name || !crime||!reportStation ) {
         res.status(400);
@@ -35,15 +39,34 @@ const addCriminal= async (req, res) => {
     });
 
     criminal.save();
+    console.log(criminal);
 
-    if (criminal) {
+    // asumming and making sure dataset exits
+    const dataset = Dataset.findOne({_id:"dataset"});
+
+    if(!dataset){
+      dataset = await new Dataset({
+       _id:"dataset",
+       $push:{key:encodedArray},
+       $push:{value:criminal._id}
+      });
+
+    }
+    else{
+      console.log(dataset);
+      dataset.key.push(encodedArray);
+      dataset.value.push(String(criminal._id));
+    }
+    dataset.save();
+
+    if (criminal ) {
       res.status(201).json({
         _id: criminal._id,
         name: criminal.name,
         crime: criminal.crime,
         reportStation:criminal.reportStation,
-        // pic_url:criminal.pic_url
-
+        pic_url:criminal.pic_url,
+        dataset:dataset
       });
 
     } else {
@@ -51,7 +74,9 @@ const addCriminal= async (req, res) => {
       throw new Error("criminal not found");
     }
 
-  }catch(e){
+  }
+  
+  catch(e){
     console.log(e);
   }
 
