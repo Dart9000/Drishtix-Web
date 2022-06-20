@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from "axios";
-
+import styles from "./login.module.css";
 
 const Register = ({baseURL}) => {
   const [name, setName] = useState("");
@@ -11,7 +11,7 @@ const Register = ({baseURL}) => {
     axios.post(`${baseURL}/register`, {name,email}, {validateStatus: false, withCredentials: true}).then((response) => {
         if(response.status === 201){
           console.log("User registered");
-          window.location("/");
+          window.location="/";
         }
         else{
           console.log(response);
@@ -21,18 +21,34 @@ const Register = ({baseURL}) => {
   }
 
   return (
-    <div>
-      <h1>Register page</h1>
-      <input type="text" placeholder="Name" onChange={(e) => {
+    <>
+{/*  */}
+    <div className={`${styles.body}`}>
+    <h1 >Register page</h1>
+    <div className={`${styles.form}`}>
+      
+    <div class={`${styles.row}`}>
+    <label for="Name">Name</label>
+    <input type="text" placeholder="Name" onChange={(e) => {
         setName(e.target.value);
-      }}/>
+      }} />
+  </div>
 
-      <input type="text" placeholder="Email" onChange={(e) => {
+      <div class={`${styles.row}`}>
+    <label for="email">Email</label>
+    <input type="text" placeholder="Email" onChange={(e) => {
         setEmail(e.target.value);
-      }}/>
+      }} />
 
-      <button onClick={register}>register</button>
+  </div>
+  <button onClick={register}>Register</button>
+  </div>
+  
+  
+
     </div>
+    </>
+    
   )
 }
 

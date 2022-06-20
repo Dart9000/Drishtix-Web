@@ -31,7 +31,16 @@ const CriminalProfile = ( {baseURL}) => {
 
 
 
-  return (
+  return (<>
+
+  <div class="card">
+      <div class="details">
+            <h2>Stevie Blight</h2>
+            <p>Director</p>
+        </div>
+        <p id="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+
     <div className='phone'>
         <h1>CriminalProfile</h1>
 
@@ -50,6 +59,7 @@ const CriminalProfile = ( {baseURL}) => {
         </div>
 
     </div>
+    </>
   )
 }
 
