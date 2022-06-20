@@ -22,8 +22,21 @@ function LiveCom() {
     const imageSrc = webcamRef.current.getScreenshot();
     console.log(imageSrc);
 
+    var byteString = atob(imageSrc.split(',')[1]);
+
+    var mimeString = imageSrc.split(',')[0].split(':')[1].split(';')[0];
+
+    var arrayBuffer = new ArrayBuffer(byteString.length);
+    var _ia = new Uint8Array(arrayBuffer);
+    for (var i = 0; i < byteString.length; i++) {
+        _ia[i] = byteString.charCodeAt(i);
+    }
+
+    var dataView = new DataView(arrayBuffer);
+    var blob = new Blob([dataView], { type: mimeString });
+
     const exData = new FormData();
-    exData.append("file", imageSrc);
+    exData.append("file", blob);
     await axios.post(`https://drishtix-api.herokuapp.com/search?Phone=${cctv.phone}&Address=${cctv.address}`, exData, {
       validateStatus: false,
       withCredentials: true
@@ -38,7 +51,7 @@ function LiveCom() {
 
 
   useEffect(() => {
-    setInterval(capture, 5000);
+    setInterval(capture, 30000);
   }, [])
 
   return (

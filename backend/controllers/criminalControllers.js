@@ -69,10 +69,8 @@ const addCriminal= async (req, res) => {
  const findCriminal = asyncHandler( async (req,res)=>{
     const {id}=req.params;
 
-    console.log(id);
 
     const criminal = await Criminal.findOne({_id:id})
-    console.log(criminal);
     if(criminal){
       res.status(200).json({
         name: criminal.name,
