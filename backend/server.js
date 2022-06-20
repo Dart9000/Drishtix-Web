@@ -7,6 +7,7 @@ const mongoose=require("mongoose");
 const cookieParser = require("cookie-parser");
 const {protect} = require("./middleware/authMiddleware");
 const criminalRoutes =require("./routes/criminalRoutes");
+const bodyparser=require("body-parser");
 
 const fileUpload = require('express-fileupload');
 
@@ -22,6 +23,7 @@ app.use(cors({
   }
 ));
 app.use(cookieParser());
+app.use(bodyparser.urlencoded({extended:true}));
 
 
 // database connection

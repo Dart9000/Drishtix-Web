@@ -64,6 +64,27 @@ const addCriminal= async (req, res) => {
 
 
   };
+ // GET  criminal/criminal_profile/:id
+
+ const findCriminal = asyncHandler( async (req,res)=>{
+    const {id}=req.params;
+    
+    const criminal =await Criminal.findOne({_id:id})
+    if(criminal){
+      res.status(200).json({
+        name: criminal.name,
+    crime:criminal.crime,
+    reportStation:criminal.reportStation,
+    profileImgURL :criminal.profileImgURL
+      })
+    }
+    else {
+      res.status(200).json({
+        msg:"criminal or the person  is not reported "
+      })
+    }
+    
+  })
 
 
-module.exports={addCriminal};
+module.exports={addCriminal,findCriminal};
