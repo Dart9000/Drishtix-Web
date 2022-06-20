@@ -13,7 +13,6 @@ cloudinary.config({
 
 const addCriminal= async (req, res) => {
 
-  try{
     const{encoding}=req.body;
     const encodedArray = encoding.split(",");
     console.log(encodedArray);
@@ -37,27 +36,26 @@ const addCriminal= async (req, res) => {
       reportStation,
       profileImgURL
     });
+criminal.save();
 
-    criminal.save();
-    console.log(criminal);
 
-    // asumming and making sure dataset exits
     const dataset = Dataset.findOne({_id:"dataset"});
 
+      console.log(dataset);
     if(!dataset){
       dataset = await new Dataset({
        _id:"dataset",
-       $push:{key:encodedArray},
-       $push:{value:criminal._id}
+       key:encodedArray,
+       value:criminal._id
       });
-
     }
     else{
-      console.log(dataset);
       dataset.key.push(encodedArray);
+      console.log(dataset.key);
       dataset.value.push(String(criminal._id));
     }
     dataset.save();
+    
 
     if (criminal ) {
       res.status(201).json({
@@ -66,22 +64,16 @@ const addCriminal= async (req, res) => {
         crime: criminal.crime,
         reportStation:criminal.reportStation,
         pic_url:criminal.pic_url,
-        dataset:dataset
       });
-
-    } else {
+    }
+     else {
       res.status(400);
       throw new Error("criminal not found");
     }
-
-  }
-  
-  catch(e){
-    console.log(e);
-  }
+    
 
 
-};
+  };
 
 
 module.exports={addCriminal};
