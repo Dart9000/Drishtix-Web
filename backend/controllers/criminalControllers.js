@@ -73,13 +73,13 @@ const addCriminal= async (req, res) => {
     if(criminal){
       res.status(200).json({
         name: criminal.name,
-    crime:criminal.crime,
-    reportStation:criminal.reportStation,
-    profileImgURL :criminal.profileImgURL
+        crime:criminal.crime,
+        reportStation:criminal.reportStation,
+        profileImgURL :criminal.profileImgURL
       })
     }
     else {
-      res.status(200).json({
+      res.status(401).json({
         msg:"criminal or the person  is not reported "
       })
     }

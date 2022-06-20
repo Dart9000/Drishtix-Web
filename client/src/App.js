@@ -9,6 +9,7 @@ import axios from "axios";
 import Register from './pages/login/register';
 import Createcriminal from './pages/createCriminal/Createcriminal';
 import Navbar from './Components/Navbar/Navbar';
+import CriminalProfile from './Components/CriminalProfile/CriminalProfile';
 
 const baseURL = "http://localhost:3002";
 
@@ -80,6 +81,10 @@ function App() {
               <Route path="/liveCam" element={
                 <LiveCam />
               } />
+               <Route path="/criminalProfile/:id" element={
+                <CriminalProfile  baseURL={baseURL} />
+              } />
+
 
             </Routes>
             </div>
