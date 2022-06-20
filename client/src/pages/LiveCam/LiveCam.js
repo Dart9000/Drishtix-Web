@@ -20,7 +20,6 @@ function LiveCom() {
 
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
-    console.log(imageSrc);
 
     var byteString = atob(imageSrc.split(',')[1]);
 
@@ -33,10 +32,10 @@ function LiveCom() {
     }
 
     var dataView = new DataView(arrayBuffer);
-    var blob = new Blob([dataView], { type: mimeString });
+    var image = new Blob([dataView], { type: mimeString });
 
     const exData = new FormData();
-    exData.append("file", blob);
+    exData.append("file", image);
     await axios.post(`https://drishtix-api.herokuapp.com/search?Phone=${cctv.phone}&Address=${cctv.address}`, exData, {
       validateStatus: false,
       withCredentials: true
