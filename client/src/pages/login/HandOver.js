@@ -12,9 +12,9 @@ function HandOver({baseURL}) {
 
     const handOver = () => {
       axios.post(`${baseURL}/handover`, {email, otp, password, whatsappNo, address}, {validateStatus: false, withCredentials: true}).then((response) => {
-          if(response.status === 200 && response.data.success){
+          if(response.status === 200){
             console.log("Done");
-            window.location("/");
+            window.location = "/";
           }else{
             console.log("Failed");
           }
