@@ -3,14 +3,15 @@ import { useParams } from 'react-router-dom'
 import axios from "axios";
 
 const CriminalProfile = ( {baseURL}) => {
+
     const {id}=useParams();
-    const [name,setName]=useState(); 
-    const [crime,setcrime]=useState(); 
-    const [reportStation,setreportStation]=useState();  
-    const [profileImgURL,setprofileImgURL]=useState();    
+    const [name,setName]=useState();
+    const [crime,setcrime]=useState();
+    const [reportStation,setreportStation]=useState();
+    const [profileImgURL,setprofileImgURL]=useState();
 
     const fetchProfile= () => {
-        axios.get(`${baseURL}/criminal/criminal_profile/:${id}`, {validateStatus: false, withCredentials: true}).then((response) => {
+        axios.get(`${baseURL}/criminal/criminal_profile/${id}`, {validateStatus: false, withCredentials: true}).then((response) => {
             if(response.status === 200){
               console.log(response.data);
                   setName(response.data.name);
@@ -27,7 +28,7 @@ const CriminalProfile = ( {baseURL}) => {
       useEffect(() => {
         fetchProfile();
       }, [])
-      
+
 
 
   return (

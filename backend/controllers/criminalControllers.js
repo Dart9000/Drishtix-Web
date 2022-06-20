@@ -68,8 +68,11 @@ const addCriminal= async (req, res) => {
 
  const findCriminal = asyncHandler( async (req,res)=>{
     const {id}=req.params;
-    
-    const criminal =await Criminal.findOne({_id:id})
+
+    console.log(id);
+
+    const criminal = await Criminal.findOne({_id:id})
+    console.log(criminal);
     if(criminal){
       res.status(200).json({
         name: criminal.name,
@@ -83,7 +86,7 @@ const addCriminal= async (req, res) => {
         msg:"criminal or the person  is not reported "
       })
     }
-    
+
   })
 
 
