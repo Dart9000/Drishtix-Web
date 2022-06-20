@@ -15,7 +15,7 @@ const addCriminal= async (req, res) => {
 
     const{encoding}=req.body;
     const encodedArray = encoding.split(",");
-    console.log(encodedArray);
+    console.log("Encoded Array: ", encodedArray);
     const {name,crime,reportStation}=req.body;
     if (!name || !crime||!reportStation ) {
         res.status(400);
@@ -28,7 +28,6 @@ const addCriminal= async (req, res) => {
       profileImgURL = result.url;
     });
 
-    console.log(profileImgURL);
 
     const criminal = await new Criminal({
       name,
@@ -36,26 +35,17 @@ const addCriminal= async (req, res) => {
       reportStation,
       profileImgURL
     });
-criminal.save();
+    criminal.save();
 
 
-    const dataset = Dataset.findOne({_id:"dataset"});
+    const dataset = await Dataset.findOne({_id:"dataset"});
 
-      console.log(dataset);
-    if(!dataset){
-      dataset = await new Dataset({
-       _id:"dataset",
-       key:encodedArray,
-       value:criminal._id
-      });
-    }
-    else{
-      dataset.key.push(encodedArray);
-      console.log(dataset.key);
-      dataset.value.push(String(criminal._id));
-    }
+    console.log(dataset);
+    dataset.key.push(encodedArray);
+    // console.log(dataset.value);
+    dataset.value.push(String(criminal._id));
     dataset.save();
-    
+
 
     if (criminal ) {
       res.status(201).json({
@@ -70,7 +60,7 @@ criminal.save();
       res.status(400);
       throw new Error("criminal not found");
     }
-    
+
 
 
   };

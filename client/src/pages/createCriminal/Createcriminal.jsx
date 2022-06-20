@@ -25,6 +25,7 @@ const Createcriminal = ({
         'Content-Type': 'multipart/form-data'
       }
     }).then((response) => {
+      console.log(response.data.encoding);
       setencoded(response.data.encoding);
     });
 
@@ -35,7 +36,6 @@ const Createcriminal = ({
     data.append('crime', crime)
     data.append('reportStation', reportStation)
     data.append('encoding', encoded);
-    console.log(data);
     await axios.post(
       `${baseURL}/criminal/create`, data, {
       validateStatus: false,
@@ -53,7 +53,7 @@ const Createcriminal = ({
         }
       });
 
-  
+
   };
 
 
