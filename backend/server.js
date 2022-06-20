@@ -15,6 +15,7 @@ const port = process.env.PORT || 3002;
 
 const userRoutes =require("./routes/userRoutes");
 
+
 app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:3000',

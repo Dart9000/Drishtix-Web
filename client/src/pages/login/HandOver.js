@@ -22,16 +22,30 @@ function HandOver({baseURL}) {
     }
 
     return (
-        <div>
-          <input type="password" placeholder="Password" onChange={(e) => {
-            setPassword(e.target.value);
-          }} />
-          <input type="number" placeholder="Whatsapp Number" onChange={(e) => {
-            setWhatsappNo(e.target.value);
-          }} />
-          <input type="text" placeholder="Address" onChange={(e) => {
-            setAddress(e.target.value);
-          }} />
+        <div className="addCriCon">
+
+          <h2>Fill Up the Details</h2>
+
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" className="form-control" placeholder="Enter password" onChange={(e) => {
+                setPassword(e.target.value);
+            }}/>
+          </div>
+
+          <div className="form-group">
+            <label>Whatsapp Number</label>
+            <input type="number" className="form-control" placeholder="Enter number" onChange={(e) => {
+                setWhatsappNo(e.target.value);
+            }}/>
+          </div>
+
+          <div className="form-group">
+            <label>Address</label>
+            <input type="text" className="form-control" placeholder="Enter address" onChange={(e) => {
+                setAddress(e.target.value);
+            }}/>
+          </div>
           <button onClick={handOver}>Submit</button>
         </div>
     )
