@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Routes, Link} from "react-router-dom";
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import HandOver from './pages/login/HandOver';
+import LiveCam from './pages/LiveCam/LiveCam';
 import { useState ,useEffect} from 'react';
 import axios from "axios";
 import Register from './pages/login/register';
@@ -34,8 +35,8 @@ function App() {
 
  return (<>
    <Router>
-  
-     <div className="App"> 
+
+     <div className="App">
             <Navbar auth={auth}/>
             <div className='app_body'>
             <Routes>
@@ -75,7 +76,11 @@ function App() {
               <Route path="/handover_user/:email/:otp" element={
                 <HandOver baseURL={baseURL}/>
               } />
-            
+
+              <Route path="/liveCam" element={
+                <LiveCam />
+              } />
+
             </Routes>
             </div>
 
