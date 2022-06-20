@@ -11,9 +11,10 @@ const Register = ({baseURL}) => {
     axios.post(`${baseURL}/register`, {name,email}, {validateStatus: false, withCredentials: true}).then((response) => {
         if(response.status === 201){
           console.log("User registered");
-          console.log(response.data);
+          window.location("/");
         }
         else{
+          console.log(response);
           console.log("register could not be done check if you have already been registered ");
         }
       });

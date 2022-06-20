@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema(
   {
     name: { type: "String", required: true },
     email: { type: "String", unique: true, required: true },
+    otp: Number,
     password: { type: "String", required: true },
     isAdmin: {
       type: Boolean,
@@ -16,13 +17,13 @@ const userSchema = new mongoose.Schema(
 );
 
 
-// self specified method for matching password 
+// self specified method for matching password
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// using pre middleware of mongoose 
+// using pre middleware of mongoose
 userSchema.pre("save", async function (next) {
   if (!this.isModified) {
     next();

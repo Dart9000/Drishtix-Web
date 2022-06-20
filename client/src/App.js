@@ -2,6 +2,7 @@ import './App.css';
 import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom";
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
+import HandOver from './pages/login/HandOver';
 import { useState ,useEffect} from 'react';
 import axios from "axios";
 import Register from './pages/login/register';
@@ -33,36 +34,47 @@ function App() {
  return (
    <Router>
      <div className="App">
-          {auth ? (
             <Routes>
               <Route path="/" element={
-                <Home isAdmin={userData.isAdmin} />
-              } />
-            
-              <Route path="/register" element={
-                userData.isAdmin?(
-                <Register baseURL={baseURL}  />
-                ):(
-                  <h1>access denied</h1>
+                auth ? (
+                  <Home isAdmin={userData.isAdmin} />
+                ) : (
+                  <Login baseURL={baseURL} setauth={setauth}/>
                 )
-             
+
+              } />
+
+              <Route path="/register" element={
+                auth ? (
+                  userData.isAdmin?(
+                    <Register baseURL={baseURL}  />
+                  ):(
+                    <h1>access denied</h1>
+                  )
+                ) : (
+                  <Login baseURL={baseURL} setauth={setauth}/>
+                )
               } />
                <Route path="/create_criminal" element={
-                !userData.isAdmin?(
-                < Createcriminal baseURL={baseURL} />
-                ):(
-                  <h1>access denied</h1>
-                )
-             
-              } />
-             
+                 auth ? (
+                   !userData.isAdmin?(
+                   < Createcriminal baseURL={baseURL} />
+                   ):(
+                     <h1>access denied</h1>
+                   )
+                 ) : (
+                   <Login baseURL={baseURL} setauth={setauth}/>
+                 )
 
-              
+              } />
+
+              <Route path="/handover_user/:email/:otp" element={
+                <HandOver baseURL={baseURL}/>
+              } />
+
             </Routes>
-          ) : (
-            <Login baseURL={baseURL} setauth={setauth}/>
-          )}
-      </div> 
+
+      </div>
     </Router>
   );
 }

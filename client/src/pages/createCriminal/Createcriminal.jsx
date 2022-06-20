@@ -13,12 +13,13 @@ const Createcriminal = ({baseURL}) => {
   const submitHandler = () => {
     const data = new FormData();
     data.append("file", pic);
-    fetch("https://drishtix-api.herokuapp.com/encode", {
-        method: "post",
-        body: data,
-      }).then((res)=>{
-        console.log(res);
-      })
+    axios.post('https://drishtix-api.herokuapp.com/encode', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((response) => {
+      console.log(response);
+    });
 
 
     //  axios.post(

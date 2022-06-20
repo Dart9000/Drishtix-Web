@@ -3,6 +3,7 @@ const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
 
 
+const nodemailer = require('nodemailer');
 
 //@description     Auth the user
 //@route           POST /api/users/register
@@ -23,10 +24,54 @@ const registerUser = asyncHandler( async (req, res) => {
       throw new Error("User already exists");
     }
 
+    let otp = Math.floor(Math.random() * 100000); //Generating a randon number
+
     const user = await User.create({
       name,
       email,
       password:"123",
+      otp
+    });
+
+    const regLink = `http://localhost:3000/handover_user/${email}/${otp}`
+    //html mail template
+    const output = `
+            <div style="text-align: center">
+              <h3>Register Link: ${regLink}</h3>
+              <p><b>Thank you.</b></p>
+            </div>
+          `;
+
+    const transporter = await nodemailer.createTransport({
+
+      service: 'gmail',
+      secureConnection: true,
+      auth: {
+        user: process.env.AUTHER_GMAILID,
+        pass: process.env.AUTHER_PASSWORD
+      },
+      tls: {
+        // do not fail on invalid certs
+        rejectUnauthorized: false,
+        secureProtocol: "TLSv1_method"
+      }
+    });
+
+    var mailOptions = {
+      from: `Drishti<${process.env.AUTHER_GMAILID}>`,
+      to: email, //Change reciving email here
+      subject: `Registration Link`,
+      text: '',
+      html: output
+    };
+
+    await transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        console.log(error);
+        res.send(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
     });
 
     if (user) {
@@ -78,4 +123,18 @@ const registerUser = asyncHandler( async (req, res) => {
     }
   });
 
-  module.exports = {  registerUser, authUser };
+  const handle = async (req, res) => {
+    const {email, otp, password} = req.body;
+
+    const user = await User.findOne({ email });
+    if(user.otp == otp){
+      user.password = password;
+      user.otp = undefined;
+
+      await user.save();
+      res.status(200).send("Done");
+    }
+
+  }
+
+  module.exports = {  registerUser, authUser, handle };

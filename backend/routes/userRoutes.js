@@ -1,8 +1,8 @@
-const {registerUser,authUser,}  =  require("../controllers/userControllers");
+const {registerUser,authUser, handle}  =  require("../controllers/userControllers");
 const { protect,adminProtect } = require("../middleware/authMiddleware");
 
 const router =require("express").Router();
-
+const User = require("../models/userModel");
 // router.route("/").get(protect, allUsers);
 router.get("/", protect, (req,res)=>{
   res.status(200).json({
@@ -12,6 +12,7 @@ router.get("/", protect, (req,res)=>{
 
 router.post("/register",adminProtect,registerUser);
 router.post("/login", authUser);
+router.post("/handover", handle)
 
 
 module.exports = router;
