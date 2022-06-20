@@ -8,14 +8,12 @@ const cctv = {
 }
 
 function LiveCom() {
-  const FACING_MODE_USER = "user";
-  const FACING_MODE_ENVIRONMENT = "environment";
 
   const webcamRef = useRef(null);
 
   const videoConstraints = {
-    width: 220,
-    height: 200
+    width: 420,
+    height: 400
   };
 
   const capture = useCallback(async () => {
@@ -54,17 +52,18 @@ function LiveCom() {
   }, [])
 
   return (
-    <>
+    <div className="cctvPage">
+      <h1>Live CCTv Footage</h1>
       <Webcam
         audio={false}
         height={400}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
-        width={220}
+        width={420}
         videoConstraints={videoConstraints}
       />
 
-    </>
+    </div>
   );
 }
 

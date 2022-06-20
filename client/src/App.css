@@ -1,3 +1,17 @@
 .app_body{
     margin-top: 10px;
 }
+
+.cctvPage{
+  margin: 10vh 0;
+  width: 100vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+video{
+  border: 2px solid;
+  border-radius: 15px;
+}
