@@ -3,7 +3,7 @@ import styles from "./Navbar.module.css";
 import { Link, Navigate } from 'react-router-dom';
 
 
-const Navbar = () => {
+const Navbar = ({auth, isAdmin}) => {
   return (
   <div>
     <nav className={`${styles.navbar}`}>
@@ -15,9 +15,12 @@ const Navbar = () => {
                 <span className={`${styles.line} ${styles.line3}`}></span>
             </div>
             <ul className={`${styles.menu_items}`}>
+              {  isAdmin?
+              (<li> <a >  <Link to="register">Register User </Link> </a> </li>
+              ):
+              ( <li> <a >  <Link to="">Home </Link> </a> </li>)
+            }
               
-               <li> <a >  <Link to="register">Register User </Link> </a> </li>
-               <li> <a >  <Link to="">Home </Link> </a> </li>
             </ul>
             <h1 className={`${styles.logo}`}>Drishtix</h1>
         </div>

@@ -32,11 +32,11 @@ const CriminalProfile = ( {baseURL}) => {
 
 
   return (
-    <div>
+    <div className='phone'>
         <h1>CriminalProfile</h1>
 
         <div>
-        <img alt="pic of criminal" src={`${profileImgURL}`}/>
+        <img  className='avatar' alt="pic of criminal" src={`${profileImgURL}`}/>
         </div>
 
         <div>

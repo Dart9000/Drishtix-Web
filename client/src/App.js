@@ -38,7 +38,7 @@ function App() {
    <Router>
 
      <div className="App">
-            <Navbar auth={auth}/>
+            <Navbar auth={auth} isAdmin={userData.isAdmin} />
             <div className='app_body'>
             <Routes>
               <Route path="/" element={
