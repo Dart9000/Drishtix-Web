@@ -49,7 +49,8 @@ const Createcriminal = ({
           exData.append("id",response.data._id);
         } else {
           console.log(response.data);
-          console.log("criminal not registered")
+          console.log("criminal not registered");
+          window.location = "/"
         }
       });
 
@@ -58,38 +59,36 @@ const Createcriminal = ({
 
 
   return (
-    <div>
+    <div className="addCriCon">
+      <h2>Add a Criminal</h2>
+      <div className="form-group">
+        <label>Name</label>
+        <input type="text" className="form-control" placeholder="Enter Name" onChange={(e) => {
+            setName(e.target.value);
+        }}/>
+      </div>
 
-      <input type="text" placeholder="Name" onChange={(e) => {
-        setName(e.target.value);
-      }
-      }
-      />
 
-      <input type="text"
-        placeholder="crime"
-        onChange={
-          (e) => {
+      <div className="form-group">
+        <label>Crime</label>
+        <input type="text" className="form-control" placeholder="Enter crime" onChange={(e) => {
             setcrime(e.target.value);
-          }
-        }
-        /> <input type="text"
-        placeholder="report Station"
-        onChange={
-          (e) => {
-            setReportStation(e.target.value);
-          }
-        }
-      />
+        }}/>
+      </div>
 
-      <input type="file"
-        placeholder="report Station"
-        onChange={
-          (e) => {
+      <div className="form-group">
+        <label>Report Station</label>
+        <input type="text" className="form-control" placeholder="Enter Report Station" onChange={(e) => {
+            setReportStation(e.target.value);
+        }}/>
+      </div>
+
+      <div className="form-group">
+        <label>Criminal Photo</label>
+        <input type="file" className="form-control" placeholder="Enter email" onChange={(e) => {
             setPic(e.target.files[0]);
-          }
-        }
-      />
+        }}/>
+      </div>
 
       < button onClick={
           submitHandler
