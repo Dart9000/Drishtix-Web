@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from "axios";
-
+import styles from "./login.module.css";
 
 const Login = ({baseURL, setauth}) => {
 
@@ -19,17 +19,26 @@ const Login = ({baseURL, setauth}) => {
       });
   }
 
-  return (
-    <div>
-      <h1>login page</h1>
+  return (<div className={`${styles.body}`}>
+    <h1 >login page</h1>
+    <div className={`${styles.form}`}>
+      
 
-      <input type="text" placeholder="Email" onChange={(e) => {
+      <div class={`${styles.row}`}>
+    <label for="email">Email</label>
+    <input type="text" placeholder="Email" onChange={(e) => {
         setEmail(e.target.value);
-      }}/>
-      <input type="password" placeholder="password" onChange={(e) => {
+      }} />
+  </div>
+  <div class={`${styles.row}`}>
+    <label for="password">Password</label>
+    <input type="password" placeholder="password" onChange={(e) => {
         setPassword(e.target.value);
-      }}/>
-      <button onClick={login}>Login</button>
+      }} />
+  </div>
+  <button onClick={login}>Login</button>
+
+    </div>
     </div>
   )
 }

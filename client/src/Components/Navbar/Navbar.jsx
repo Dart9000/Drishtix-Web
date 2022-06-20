@@ -8,7 +8,7 @@ const Navbar = () => {
   <div>
     <nav className={`${styles.navbar}`}>
         <div className={`${styles.navbar_container} ${styles.container}`}>
-            <input type="checkbox"  />
+            <input type="checkbox" id="" />
             <div className={`${styles.hamburger_lines}`}>
                 <span className={`${styles.line} ${styles.line1}`}></span>
                 <span className={`${styles.line} ${styles.line2}`}></span>

@@ -15,7 +15,6 @@ const Createcriminal = ({
   const [encoded, setencoded] = useState([]);
 
   const submitHandler = async () => {
-    
     const exData = new FormData();
     exData.append("file", pic);
     await axios.post('https://drishtix-api.herokuapp.com/encode', exData, {
@@ -28,6 +27,7 @@ const Createcriminal = ({
     }).then((response) => {
       setencoded(response.data.encoding);
     });
+
 
     const data = new FormData()
     data.append('file', pic)
@@ -46,13 +46,14 @@ const Createcriminal = ({
       .then((response) => {
         if (response.status === 201) {
           console.log("criminal data registered");
-          console.log(response.data);
+          exData.append("id",response.data._id);
         } else {
-          console.log(response);
+          console.log(response.data);
           console.log("criminal not registered")
         }
       });
 
+  
   };
 
 
